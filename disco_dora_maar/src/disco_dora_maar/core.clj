@@ -1,12 +1,16 @@
 (ns disco-dora-maar.core
   (:require [quil.core :refer :all]))
 
+(def img (atom nil))
+
 (defn setup []
   (smooth)
   (frame-rate 2)
-  (background 0))
+  (background 0)
+  (swap! img (fn [x]
+               (load-image "disco_dora_maar_seated_mask.png"))))
 
-(def stroke-val (atom 0)) ; on/off switch for light
+(def stroke-val (atom 0)) ; on/off switch for lights
 
 (def rainbow-colors [[255 0 0]
                      [255 127 0]
@@ -43,7 +47,8 @@
       
        (let [x    i
              y    (* 40 (inc r))]
-         (rect x y rect-x rect-y))))))
+         (rect x y rect-x rect-y))))
+    (image @img 0 0)))
 
 (defsketch example
   :title "Oh so many grey circles"
