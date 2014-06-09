@@ -40,19 +40,20 @@
            i   (* 20
                   (inc c))]
        (if (= r @stroke-val)
-         (apply stroke col)
-         (stroke 0 0 0))
-       (stroke-weight 2)
+         (do (stroke-weight 2)
+             (apply stroke (concat col [1000])))
+         (do (stroke-weight 1)
+             (stroke 0 0 0 0)))
        (fill 0 0 0)
       
        (let [x    i
              y    (* 40 (inc r))]
-         (rect x y rect-x rect-y))))
-    (image @img 0 0)))
+         (rect x y rect-x rect-y)))))
+  (image @img 0 0))
 
 (defsketch example
   :title "Oh so many grey circles"
   :setup setup
   :draw draw
-  :size [500 700]
-  :renderer :opengl)
+  :size [498 700]
+  :renderer :p2d)
